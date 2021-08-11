@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>层级模型、树结构</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      /* 隐藏body窗口区域滚动条 */
+    }
+  </style>
+</head>
+
+<body>
+  <script src="../three.js-master/build/three.js"></script>
+  <script src="../three.js-master/examples/js/controls/OrbitControls.js"></script>
+
+  <script>
+    // 创建一个场景对象
+    let scene = new THREE.Scene()
+
+    // // 创建网格模型
+    // let geometry = new THREE.CylinderGeometry(50, 200, 100,1000) // 几何实例
+    // let letmaterial = new THREE.MeshLambertMaterial({ color: 0xff00ff }) // 材质实例
+    // let mesh = new THREE.Mesh(geometry, letmaterial)
+    // scene.add(mesh)
+
+    // 光源
+    // 点光源
+    let pointe = new THREE.PointLight(0xffffff)
+    // pointe.position.y = 200
+    pointe.position.x = 300
+    pointe.position.y = 600
+    pointe.position.z = 300
+    scene.add(pointe)
+    //环境光
+    var ambient = new THREE.AmbientLight(0x444444);
+    scene.add(ambient);
+
+    // 相机
+    let width = window.innerWidth
+    let height = window.innerHeight
+    let k = width / height
+    let s = 500
+    let camera = new THREE.OrthographicCamera(-s * k, s * k, s, -s, 1, 1000)
+    camera.position.set(300, 300, 300)
+    camera.lookAt(scene.position)
+
+    // 渲染器
+    let renderer = new THREE.WebGLRenderer()
+    renderer.setSize(width, height)
+    renderer.setClearColor(0xb9d3ff, 1)
+    document.body.appendChild(renderer.domElement)
+
+    // 辅助坐标系，可用于调试查看
+    var axisHelper = new THREE.AxisHelper(250)
+    scene.add(axisHelper)
+
+
+    render();
+    // 渲染函数
+    function render() {
+      renderer.render(scene, camera);//执行渲染操作
+      requestAnimationFrame(render);//请求再次执行渲染函数render
+    }
+    var controls = new THREE.OrbitControls(camera, renderer.domElement);//创建控件对象
+  </script>
+
+  <script>
+    // 头部网格模型和组
+    var headMesh = sphereMesh(10, 0, 0, 0);
+    headMesh.name = "脑壳"
+    var leftEyeMesh = sphereMesh(1, 8, 5, 4);
+    leftEyeMesh.name = "左眼"
+    var rightEyeMesh = sphereMesh(1, 8, 5, -4);
+    rightEyeMesh.name = "右眼"
+    var headGroup = new THREE.Group();
+    headGroup.name = "头部"
+    headGroup.add(headMesh, leftEyeMesh, rightEyeMesh);
+    // 身体网格模型和组
+    var neckMesh = cylinderMesh(3, 10, 0, -15, 0);
+    neckMesh.name = "脖子"
+    var bodyMesh = cylinderMesh(14, 30, 0, -35, 0);
+    bodyMesh.name = "腹部"
+    var leftLegMesh = cylinderMesh(4, 60, 0, -80, -7);
+    leftLegMesh.name = "左腿"
+    var rightLegMesh = cylinderMesh(4, 60, 0, -80, 7);
+    rightLegMesh.name = "右腿"
+    var legGroup = new THREE.Group();
+    legGroup.name = "腿"
+    legGroup.add(leftLegMesh, rightLegMesh);
+    var bodyGroup = new THREE.Group();
+    bodyGroup.name = "身体"
+    bodyGroup.add(neckMesh, bodyMesh, legGroup);
+    // 人Group
+    var personGroup = new THREE.Group();
+    personGroup.name = "人"
+    personGroup.add(headGroup, bodyGroup)
+    personGroup.translateY(50)
+    scene.add(personGroup);
+
+    // 球体网格模型创建函数
+    function sphereMesh(R, x, y, z) {
+      var geometry = new THREE.SphereGeometry(R, 25, 25); //球体几何体
+      var material = new THREE.MeshPhongMaterial({
+        color: 0x0000ff
+      }); //材质对象Material
+      var mesh = new THREE.Mesh(geometry, material); // 创建网格模型对象
+      mesh.position.set(x, y, z);
+      return mesh;
+    }
+    // 圆柱体网格模型创建函数
+    function cylinderMesh(R, h, x, y, z) {
+      var geometry = new THREE.CylinderGeometry(R, R, h, 25, 25); //球体几何体
+      var material = new THREE.MeshPhongMaterial({
+        color: 0x0000ff
+      }); //材质对象Material
+      var mesh = new THREE.Mesh(geometry, material); // 创建网格模型对象
+      mesh.position.set(x, y, z);
+      return mesh;
+    }
+  </script>
+</body>
+
+</html>
