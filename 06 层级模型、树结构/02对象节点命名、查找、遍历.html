@@ -123,6 +123,31 @@
       mesh.position.set(x, y, z);
       return mesh;
     }
+
+    // 递归遍历指定场景/组的所有对象
+    // scene.traverse(function (obj) {
+    //   console.log(obj.name,obj);
+    //   // if (obj.type === "Group") {
+    //   //   console.log(obj.name);
+    //   // }
+    //   // if (obj.type === "Mesh") {
+    //   //   console.log('  ' + obj.name);
+    //   //   obj.material.color.set(0xffff00);
+    //   // }
+    //   // if (obj.name === "左眼" | obj.name === "右眼") {
+    //   //   obj.material.color.set(0x000000)
+    //   // }
+    //   // 打印id属性
+    //   // console.log(obj.id);
+    //   // // 打印该对象的父对象
+    //   // console.log(obj.parent);
+    //   // // 打印该对象的子对象
+    //   // console.log(obj.children);
+    // })
+
+    var idNode = scene.getObjectByName('左眼');
+    idNode.material.color.set(0x000000)
+    console.log(idNode);
   </script>
 </body>
 
