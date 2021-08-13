@@ -1,0 +1,11 @@
+Model Information:
+* title:	Portgaz D Ace
+* source:	https://sketchfab.com/3d-models/portgaz-d-ace-f42f686ad3ac411992a34e546298ff7d
+* author:	RJ Magda (https://sketchfab.com/RJ.Magda)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Portgaz D Ace" (https://sketchfab.com/3d-models/portgaz-d-ace-f42f686ad3ac411992a34e546298ff7d) by RJ Magda (https://sketchfab.com/RJ.Magda) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
