@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>纹理贴图</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      /* 隐藏body窗口区域滚动条 */
+    }
+  </style>
+</head>
+
+<body>
+  <script src="../three.js-master/build/three.js"></script>
+  <script src="../three.js-master/examples/js/controls/OrbitControls.js"></script>
+
+  <script>
+    // 创建一个场景对象
+    let scene = new THREE.Scene()
+
+    // // 创建网格模型
+    // let geometry = new THREE.CylinderGeometry(50, 200, 100,1000) // 几何实例
+    // let letmaterial = new THREE.MeshLambertMaterial({ color: 0xff00ff }) // 材质实例
+    // let mesh = new THREE.Mesh(geometry, letmaterial)
+    // scene.add(mesh)
+
+    // 光源
+    // 点光源
+    let pointe = new THREE.PointLight(0xffffff)
+    // pointe.position.y = 200
+    pointe.position.x = 300
+    pointe.position.y = 600
+    pointe.position.z = 300
+    scene.add(pointe)
+    //环境光
+    var ambient = new THREE.AmbientLight(0x444444);
+    scene.add(ambient);
+
+    // 相机
+    let cwidth = window.innerWidth
+    let cheight = window.innerHeight
+    let k = cwidth / cheight
+    let s = 500
+    let camera = new THREE.OrthographicCamera(-s * k, s * k, s, -s, 1, 1000)
+    camera.position.set(300, 300, 300)
+    camera.lookAt(scene.position)
+
+    // 渲染器
+    let renderer = new THREE.WebGLRenderer()
+    renderer.setSize(cwidth, cheight)
+    renderer.setClearColor(0xb9d3ff, 1)
+    document.body.appendChild(renderer.domElement)
+
+    // 辅助坐标系，可用于调试查看
+    var axisHelper = new THREE.AxisHelper(250)
+    scene.add(axisHelper)
+
+
+    render();
+    // 渲染函数
+    function render() {
+      renderer.render(scene, camera);//执行渲染操作
+      requestAnimationFrame(render);//请求再次执行渲染函数render
+    }
+    var controls = new THREE.OrbitControls(camera, renderer.domElement);//创建控件对象
+  </script>
+
+  <script>
+    //创建一个平面几何体作为投影面
+    var planeGeometry = new THREE.PlaneGeometry(300, 200);
+
+    planeGeometry.attributes.uv2 = planeGeometry.attributes.uv;
+    var textureLoader = new THREE.TextureLoader();
+    // 加载光照贴图
+    var textureLight = textureLoader.load('./img/wind-2.png');
+    var planeMaterial = new THREE.MeshLambertMaterial({
+      color: 0x999999,
+      lightMap: textureLight,// 设置光照贴图
+      // lightMapIntensity:0.5,//烘培光照的强度. 默认 1.
+    });
+    var planeMesh = new THREE.Mesh(planeGeometry, planeMaterial); //网格模型对象Mesh
+
+    scene.add(planeMesh)
+  </script>
+</body>
+
+</html>
