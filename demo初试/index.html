@@ -1,12 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>threejs_demo</title>
+  <style>
+    body {
+      margin: 0
+    }
+  </style>
 </head>
+
 <body>
-  
+  <div id="three-js"></div>
+  <script type="module">
+    import * as THREE from '../three.js-master/build/three.module.js'
+    import { OrbitControls } from '../three.js-master/examples/jsm/controls/OrbitControls.js'
+
+    var SCREEN_WIDTH = window.innerWidth, SCREEN_HEIGHT = window.innerHeight;
+    var VIEW_ANGLE = 55, ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT, NEAR = 0.1, FAR = 10000;
+    let scene, camera, renderer
+    let cameraParm = {
+      width: SCREEN_WIDTH, //窗口宽度
+      height: SCREEN_HEIGHT, //窗口高度
+      k: SCREEN_HEIGHT / SCREEN_HEIGHT, //窗口宽高比
+      s: 300 //三维场景显示范围控制系数，系数越大，显示的范围越大
+    }
+    let controls
+
+    init();
+    animate();  // 根据电脑渲染/刷新图
+
+    // 场景
+    function initScene() {
+      scene = new THREE.Scene();
+    }
+
+    // 相机
+    function initCamera() {
+      camera = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
+      camera.position.set(200, 1000, 1800); //设置相机位置
+      camera.lookAt(scene.position); //设置相机方向(指向的场景对象)
+      camera.lookAt(0, 0, 0);
+      scene.add(camera);
+    }
+
+    // 渲染器
+    function initRender() {
+      renderer = new THREE.WebGLRenderer({
+        antialias: true
+      });
+      //设置渲染器的大小为窗口的内宽度，也就是内容区的宽度。
+      renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+      var container = document.getElementById('three-js');
+      container.appendChild(renderer.domElement);
+      renderer.setClearColor(0x4682B4, 1.0);
+      // 开启阴影效果
+      // renderer.shadowMap.enabled = true;
+    }
+
+    // 光源
+    function initLight() {
+      // 位置不同，方向光作用于物体的面也不同，看到的物体各个面的颜色也不同
+      // A start, 第二个参数是光源强度
+      var directionalLight = new THREE.DirectionalLight(0xffffff, 1);//模拟远处类似太阳的光源
+      directionalLight.position.set(0, 100, 100).normalize();
+      scene.add(directionalLight);
+      //A end
+      var ambient = new THREE.AmbientLight(0x666666, 1); //AmbientLight,影响整个场景的光源
+      ambient.position.set(0, 0, 0);
+      // ambient.castShadow = true
+      scene.add(ambient);
+      //var pointlight = new THREE.PointLight(0x000000,1.5,2000);
+      //scene.add(pointlight);
+    }
+    // 渲染
+    function animate() {
+      requestAnimationFrame(animate);
+      renderer.render(scene, camera);
+      // update();
+    }
+
+    //控制
+    function initControls() {
+      controls = new OrbitControls(camera, renderer.domElement);
+    }
+    // 显示坐标轴
+    function addAxesHelper() {
+      const axesHelper = new THREE.AxesHelper(100);
+      scene.add(axesHelper);
+    }
+
+
+    //创建地板
+    function createFloor() {
+      var loader = new THREE.TextureLoader();
+      loader.load("./img/floor.png", function (texture) {
+        texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+        texture.repeat.set(10, 10);
+
+        let floorGeometry = new THREE.CylinderGeometry(1000, 1000, 20, 8);
+        var floorMaterial = new THREE.MeshBasicMaterial({
+          map: texture,
+          side: THREE.DoubleSide
+        });
+        var floor = new THREE.Mesh(floorGeometry, floorMaterial);
+        floor.position.y = -10;
+        // floor.rotation.x = Math.PI / 2;
+        // floor.receiveShadow = true
+        scene.add(floor);
+      })
+
+    }
+
+    // 创建存放架
+    function createStorageRack() {
+      const geometry = new THREE.BoxGeometry(40, 40, 30);
+      const material = new THREE.MeshPhongMaterial({ color: 0xCC9966, shininess: 1 });
+      const cubeA = new THREE.Mesh(geometry, material);
+      cubeA.position.set(0, 20, 0);
+
+      
+      const planeGeometry = new THREE.PlaneGeometry(40, 40);
+      const material2 = new THREE.MeshBasicMaterial({ color: 0xffff00, side: THREE.DoubleSide });
+      const plane = new THREE.Mesh( planeGeometry, material2 );
+      plane.position.set(0,20,15.1)
+
+
+
+
+
+
+      const group = new THREE.Group();
+      group.add(cubeA);
+      group.add(plane)
+
+      scene.add(group);
+    }
+
+
+
+    //初始化函数
+    function init() {
+      initScene();
+      initCamera();
+      initRender();
+      initLight();
+      initControls();
+      addAxesHelper();
+      initObject();
+    }
+
+    //初始化OBJ对象
+    function initObject() {
+      createFloor();  //地板
+      createStorageRack();  // 存放架1
+    }
+  </script>
 </body>
+
 </html>
