@@ -1,0 +1,22 @@
+{
+  "name": "threejs_study",
+  "version": "1.0.0",
+  "description": "根目录下需要three.js-master项目文件",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/forminiice/threejs_study.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/forminiice/threejs_study/issues"
+  },
+  "homepage": "https://github.com/forminiice/threejs_study#readme",
+  "dependencies": {
+    "three": "^0.143.0"
+  }
+}

@@ -16,10 +16,10 @@
 </head>
 
 <body>
-  <script src="../three.js-master/build/three.js"></script>
-  <script src="../three.js-master/examples/js/controls/OrbitControls.js"></script>
-
-  <script>
+  <script type="module">
+    // 引入three.js三维引擎
+    import '../node_modules/three/build/three.js';
+    import '../node_modules/three//examples/js/controls/OrbitControls.js';
     // 创建一个场景对象
     let scene = new THREE.Scene()
 
@@ -57,8 +57,8 @@
     document.body.appendChild(renderer.domElement)
 
     // 辅助坐标系，可用于调试查看
-    var axisHelper = new THREE.AxisHelper(250)
-    scene.add(axisHelper)
+    var axesHelper = new THREE.AxesHelper(250);
+    scene.add(axesHelper);
 
 
     render();
@@ -68,65 +68,66 @@
       requestAnimationFrame(render);//请求再次执行渲染函数render
     }
     var controls = new THREE.OrbitControls(camera, renderer.domElement);//创建控件对象
-  </script>
 
-  <script>
-    // 程序生成一张图片的RGB值
-    // var geometry = new THREE.PlaneGeometry(128, 128); //矩形平面
-    // /**
-    //  * 创建纹理对象的像素数据
-    //  */
-    // var width = 32; //纹理宽度
-    // var height = 32; //纹理高度
-    // var size = width * height; //像素大小
-    // var data = new Uint8Array(size * 3); //size*3：像素在缓冲区占用空间
-    // for (let i = 0; i < size * 3; i += 3) {
-    //   // 随机设置RGB分量的值
-    //   data[i] = 255 * Math.random()
-    //   data[i + 1] = 255 * Math.random()
-    //   data[i + 2] = 255 * Math.random()
-    // }
-    // // 创建数据文理对象   RGB格式：THREE.RGBFormat
-    // var texture = new THREE.DataTexture(data, width, height, THREE.RGBFormat);
-    // texture.needsUpdate = true; //纹理更新
-    // //打印纹理对象的image属性
-    // // console.log(texture.image);
+    {
+        
+      // 程序生成一张图片的RGB值
+      // var geometry = new THREE.PlaneGeometry(128, 128); //矩形平面
+      // /**
+      //  * 创建纹理对象的像素数据
+      //  */
+      // var width = 32; //纹理宽度
+      // var height = 32; //纹理高度
+      // var size = width * height; //像素大小
+      // var data = new Uint8Array(size * 3); //size*3：像素在缓冲区占用空间
+      // for (let i = 0; i < size * 3; i += 3) {
+      //   // 随机设置RGB分量的值
+      //   data[i] = 255 * Math.random()
+      //   data[i + 1] = 255 * Math.random()
+      //   data[i + 2] = 255 * Math.random()
+      // }
+      // // 创建数据文理对象   RGB格式：THREE.RGBFormat
+      // var texture = new THREE.DataTexture(data, width, height, THREE.RGBFormat);
+      // texture.needsUpdate = true; //纹理更新
+      // //打印纹理对象的image属性
+      // // console.log(texture.image);
 
-    // var material = new THREE.MeshPhongMaterial({
-    //   map: texture, // 设置纹理贴图
-    // }); //材质对象Material
-    // var mesh = new THREE.Mesh(geometry, material);
-    // scene.add(mesh)
+      // var material = new THREE.MeshPhongMaterial({
+      //   map: texture, // 设置纹理贴图
+      // }); //材质对象Material
+      // var mesh = new THREE.Mesh(geometry, material);
+      // scene.add(mesh)
 
-    // 程序生成一张图片的RGBA值
-    var geometry = new THREE.PlaneGeometry(128, 128); //矩形平面
-    /**
-     * 创建纹理对象的像素数据
-     */
-    var width = 32; //纹理宽度
-    var height = 32; //纹理高度
-    var size = width * height; //像素大小
-    var data = new Uint8Array(size * 4); //size*4：像素在缓冲区占用空间
-    for (let i = 0; i < size * 4; i += 4) {
-      // 随机设置RGB分量的值
-      data[i] = 255 * Math.random()
-      data[i + 1] = 255 * Math.random()
-      data[i + 2] = 255 * Math.random()
-      // 设置透明度分量A
-      data[i + 3] = 255 * 0.5
+      // 程序生成一张图片的RGBA值
+      var geometry = new THREE.PlaneGeometry(128, 128); //矩形平面
+      /**
+       * 创建纹理对象的像素数据
+       */
+      var width = 32; //纹理宽度
+      var height = 32; //纹理高度
+      var size = width * height; //像素大小
+      var data = new Uint8Array(size * 4); //size*4：像素在缓冲区占用空间
+      for (let i = 0; i < size * 4; i += 4) {
+        // 随机设置RGB分量的值
+        data[i] = 255 * Math.random()
+        data[i + 1] = 255 * Math.random()
+        data[i + 2] = 255 * Math.random()
+        // 设置透明度分量A
+        data[i + 3] = 255 * 0.5
+      }
+      // 创建数据文理对象   RGBA格式：THREE.RGBAFormat
+      var texture = new THREE.DataTexture(data, width, height, THREE.RGBAFormat);
+      texture.needsUpdate = true; //纹理更新
+      //打印纹理对象的image属性
+      console.log(texture.image);
+
+      var material = new THREE.MeshPhongMaterial({
+        map: texture, // 设置纹理贴图
+        transparent: true,//允许透明设置
+      });
+      var mesh = new THREE.Mesh(geometry, material);
+      scene.add(mesh)
     }
-    // 创建数据文理对象   RGBA格式：THREE.RGBAFormat
-    var texture = new THREE.DataTexture(data, width, height, THREE.RGBAFormat);
-    texture.needsUpdate = true; //纹理更新
-    //打印纹理对象的image属性
-    console.log(texture.image);
-
-    var material = new THREE.MeshPhongMaterial({
-      map: texture, // 设置纹理贴图
-      transparent: true,//允许透明设置
-    });
-    var mesh = new THREE.Mesh(geometry, material);
-    scene.add(mesh)
   </script>
 </body>
 

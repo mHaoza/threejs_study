@@ -16,10 +16,10 @@
 </head>
 
 <body>
-  <script src="../three.js-master/build/three.js"></script>
-  <script src="../three.js-master/examples/js/controls/OrbitControls.js"></script>
-
-  <script>
+  <script type="module">
+    // 引入three.js三维引擎
+    import '../node_modules/three/build/three.js';
+    import '../node_modules/three//examples/js/controls/OrbitControls.js';
     // 创建一个场景对象
     let scene = new THREE.Scene()
 
@@ -57,8 +57,8 @@
     document.body.appendChild(renderer.domElement)
 
     // 辅助坐标系，可用于调试查看
-    var axisHelper = new THREE.AxisHelper(250)
-    scene.add(axisHelper)
+    var axesHelper = new THREE.AxesHelper(250);
+    scene.add(axesHelper);
 
 
     render();
@@ -68,53 +68,52 @@
       requestAnimationFrame(render);//请求再次执行渲染函数render
     }
     var controls = new THREE.OrbitControls(camera, renderer.domElement);//创建控件对象
-  </script>
 
-  <script>
-    var geometry = new THREE.BufferGeometry(); //声明一个几何体对象Geometry
-    // 三维样条曲线  Catmull-Rom算法
-
-
-
-    // var curve = new THREE.CatmullRomCurve3([
-    //   new THREE.Vector3(-50, 20, 90),
-    //   new THREE.Vector3(-10, 40, 40),
-    //   new THREE.Vector3(0, 0, 0),
-    //   new THREE.Vector3(60, -60, 0),
-    //   new THREE.Vector3(70, 0, 80),
-    //   new THREE.Vector3(90, 60, 80)
-    // ]);
-
-    // 贝塞尔曲线------------------------------------------------------------
-    // // 二次贝赛尔曲线的参数p1、p3是起始点，p2是控制点，控制点不在贝塞尔曲线上。
-    // var p1 = new THREE.Vector3(-80, 0, 0);
-    // var p2 = new THREE.Vector3(20, 100, 0);
-    // var p3 = new THREE.Vector3(80, 0, 0);
-    // // 三维二次贝赛尔曲线
-    // var curve = new THREE.QuadraticBezierCurve3(p1, p2, p3);
-
-    // 三次贝赛尔曲线的参数p1、p4是起始点，p2、p3是控制点，控制点不在贝塞尔曲线上。
-    var p1 = new THREE.Vector3(-80, 0, 0);
-    var p2 = new THREE.Vector3(-40, 100, 0);
-    var p3 = new THREE.Vector3(40, 100, 0);
-    var p4 = new THREE.Vector3(80, 0, 0);
-    // 三维三次贝赛尔曲线
-    var curve = new THREE.CubicBezierCurve3(p1, p2, p3, p4);
+    {
+      var geometry = new THREE.BufferGeometry(); //声明一个几何体对象Geometry
+      // 三维样条曲线  Catmull-Rom算法
 
 
 
-    //getPoints是基类Curve的方法，返回一个vector3对象作为元素组成的数组
-    var points = curve.getPoints(100); //分段数100，返回101个顶点
-    // setFromPoints方法从points中提取数据改变几何体的顶点属性vertices
-    geometry.setFromPoints(points);
-    //材质对象
-    var material = new THREE.LineBasicMaterial({
-      color: 0x000000
-    });
-    //线条模型对象
-    var line = new THREE.Line(geometry, material);
-    scene.add(line); //线条对象添加到场景中
+      // var curve = new THREE.CatmullRomCurve3([
+      //   new THREE.Vector3(-50, 20, 90),
+      //   new THREE.Vector3(-10, 40, 40),
+      //   new THREE.Vector3(0, 0, 0),
+      //   new THREE.Vector3(60, -60, 0),
+      //   new THREE.Vector3(70, 0, 80),
+      //   new THREE.Vector3(90, 60, 80)
+      // ]);
 
+      // 贝塞尔曲线------------------------------------------------------------
+      // // 二次贝赛尔曲线的参数p1、p3是起始点，p2是控制点，控制点不在贝塞尔曲线上。
+      // var p1 = new THREE.Vector3(-80, 0, 0);
+      // var p2 = new THREE.Vector3(20, 100, 0);
+      // var p3 = new THREE.Vector3(80, 0, 0);
+      // // 三维二次贝赛尔曲线
+      // var curve = new THREE.QuadraticBezierCurve3(p1, p2, p3);
+
+      // 三次贝赛尔曲线的参数p1、p4是起始点，p2、p3是控制点，控制点不在贝塞尔曲线上。
+      var p1 = new THREE.Vector3(-80, 0, 0);
+      var p2 = new THREE.Vector3(-40, 100, 0);
+      var p3 = new THREE.Vector3(40, 100, 0);
+      var p4 = new THREE.Vector3(80, 0, 0);
+      // 三维三次贝赛尔曲线
+      var curve = new THREE.CubicBezierCurve3(p1, p2, p3, p4);
+
+
+
+      //getPoints是基类Curve的方法，返回一个vector3对象作为元素组成的数组
+      var points = curve.getPoints(100); //分段数100，返回101个顶点
+      // setFromPoints方法从points中提取数据改变几何体的顶点属性vertices
+      geometry.setFromPoints(points);
+      //材质对象
+      var material = new THREE.LineBasicMaterial({
+        color: 0x000000
+      });
+      //线条模型对象
+      var line = new THREE.Line(geometry, material);
+      scene.add(line); //线条对象添加到场景中
+    }
   </script>
 </body>
 

@@ -16,10 +16,10 @@
 </head>
 
 <body>
-  <script src="../three.js-master/build/three.js"></script>
-  <script src="../three.js-master/examples/js/controls/OrbitControls.js"></script>
-
-  <script>
+  <script type="module">
+    // 引入three.js三维引擎
+    import '../node_modules/three/build/three.js';
+    import '../node_modules/three//examples/js/controls/OrbitControls.js';
     // 创建一个场景对象
     let scene = new THREE.Scene()
 
@@ -57,8 +57,8 @@
     document.body.appendChild(renderer.domElement)
 
     // 辅助坐标系，可用于调试查看
-    var axisHelper = new THREE.AxisHelper(250)
-    scene.add(axisHelper)
+    var axesHelper = new THREE.AxesHelper(250);
+    scene.add(axesHelper);
 
 
     render();
@@ -68,9 +68,8 @@
       requestAnimationFrame(render);//请求再次执行渲染函数render
     }
     var controls = new THREE.OrbitControls(camera, renderer.domElement);//创建控件对象
-  </script>
-
-  <script>
+    
+    
     // 三个顶点确定一个三角形，网格模型Mesh默认的情况下，通过三角形面绘制渲染几何体的所有顶点，通过一系列的三角形拼接出来一个曲面。
     var geometry3 = new THREE.BoxGeometry(100, 100, 100);
     // 三角形面渲染模式  

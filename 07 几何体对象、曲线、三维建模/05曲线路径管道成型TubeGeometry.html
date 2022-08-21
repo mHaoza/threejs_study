@@ -16,10 +16,10 @@
 </head>
 
 <body>
-  <script src="../three.js-master/build/three.js"></script>
-  <script src="../three.js-master/examples/js/controls/OrbitControls.js"></script>
-
-  <script>
+  <script type="module">
+    // 引入three.js三维引擎
+    import '../node_modules/three/build/three.js';
+    import '../node_modules/three//examples/js/controls/OrbitControls.js';
     // 创建一个场景对象
     let scene = new THREE.Scene()
 
@@ -57,8 +57,8 @@
     document.body.appendChild(renderer.domElement)
 
     // 辅助坐标系，可用于调试查看
-    var axisHelper = new THREE.AxisHelper(250)
-    scene.add(axisHelper)
+    var axesHelper = new THREE.AxesHelper(250);
+    scene.add(axesHelper);
 
 
     render();
@@ -68,51 +68,53 @@
       requestAnimationFrame(render);//请求再次执行渲染函数render
     }
     var controls = new THREE.OrbitControls(camera, renderer.domElement);//创建控件对象
-  </script>
 
-  <script>
-    // // 样条曲面生成圆管案例
-    // //创建管道成型的路径(3D样条曲线)
-    // var path = new THREE.CatmullRomCurve3([
-    //   new THREE.Vector3(-10, -50, -50),
-    //   new THREE.Vector3(10, 0, 0),
-    //   new THREE.Vector3(8, 50, 50),
-    //   new THREE.Vector3(-5, 0, 100)
-    // ]);
-    // // // LineCurve3创建直线段路径
-    // // var path = new THREE.LineCurve3(new THREE.Vector3(0, 100, 0), new THREE.Vector3(0, 0, 0));
-    // // path:路径   40：沿着轨迹细分数  2：管道半径   25：管道截面圆细分数
-    // var geometry = new THREE.TubeGeometry(path, 1000, 10, 25);
+    {
+        
+      // // 样条曲面生成圆管案例
+      // //创建管道成型的路径(3D样条曲线)
+      // var path = new THREE.CatmullRomCurve3([
+      //   new THREE.Vector3(-10, -50, -50),
+      //   new THREE.Vector3(10, 0, 0),
+      //   new THREE.Vector3(8, 50, 50),
+      //   new THREE.Vector3(-5, 0, 100)
+      // ]);
+      // // // LineCurve3创建直线段路径
+      // // var path = new THREE.LineCurve3(new THREE.Vector3(0, 100, 0), new THREE.Vector3(0, 0, 0));
+      // // path:路径   40：沿着轨迹细分数  2：管道半径   25：管道截面圆细分数
+      // var geometry = new THREE.TubeGeometry(path, 1000, 10, 25);
 
-    //材质对象
-    var material = new THREE.MeshLambertMaterial({
-      color: 0x00ff00
-    });
+      //材质对象
+      var material = new THREE.MeshLambertMaterial({
+        color: 0x00ff00
+      });
 
-    // //线条模型对象
-    // var mesh = new THREE.Mesh(geometry, material);
-    // scene.add(mesh); //线条对象添加到场景中  
+      // //线条模型对象
+      // var mesh = new THREE.Mesh(geometry, material);
+      // scene.add(mesh); //线条对象添加到场景中  
 
-    // 创建多段线条的顶点数据
-    var p1 = new THREE.Vector3(-85.35, -35.36)
-    var p2 = new THREE.Vector3(-50, 0, 0);
-    var p3 = new THREE.Vector3(0, 50, 0);
-    var p4 = new THREE.Vector3(50, 0, 0);
-    var p5 = new THREE.Vector3(85.35, -35.36);
-    // 创建线条一：直线
-    let line1 = new THREE.LineCurve3(p1, p2);
-    // 重建线条2：三维样条曲线
-    var curve = new THREE.CatmullRomCurve3([p2, p3, p4]);
-    // 创建线条3：直线
-    let line2 = new THREE.LineCurve3(p4, p5);
-    var CurvePath = new THREE.CurvePath();// 创建CurvePath对象
-    CurvePath.curves.push(line1, curve, line2);// 插入多段线条
-    //通过多段曲线路径创建生成管道
-    //通过多段曲线路径创建生成管道，CCurvePath：管道路径
-    var geometry2 = new THREE.TubeGeometry(CurvePath, 100, 5, 25, false);
-    //线条模型对象
-    var mesh2 = new THREE.Mesh(geometry2, material);
-    scene.add(mesh2); 
+      // 创建多段线条的顶点数据
+      var p1 = new THREE.Vector3(-85.35, -35.36)
+      var p2 = new THREE.Vector3(-50, 0, 0);
+      var p3 = new THREE.Vector3(0, 50, 0);
+      var p4 = new THREE.Vector3(50, 0, 0);
+      var p5 = new THREE.Vector3(85.35, -35.36);
+      // 创建线条一：直线
+      let line1 = new THREE.LineCurve3(p1, p2);
+      // 重建线条2：三维样条曲线
+      var curve = new THREE.CatmullRomCurve3([p2, p3, p4]);
+      // 创建线条3：直线
+      let line2 = new THREE.LineCurve3(p4, p5);
+      var CurvePath = new THREE.CurvePath();// 创建CurvePath对象
+      CurvePath.curves.push(line1, curve, line2);// 插入多段线条
+      //通过多段曲线路径创建生成管道
+      //通过多段曲线路径创建生成管道，CCurvePath：管道路径
+      var geometry2 = new THREE.TubeGeometry(CurvePath, 100, 5, 25, false);
+      //线条模型对象
+      var mesh2 = new THREE.Mesh(geometry2, material);
+      scene.add(mesh2); 
+  
+    }
   </script>
 </body>
 

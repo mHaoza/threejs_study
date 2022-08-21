@@ -16,8 +16,9 @@
 <body>
   <div id="three-js"></div>
   <script type="module">
-    import * as THREE from '../three.js-master/build/three.module.js'
-    import { OrbitControls } from '../three.js-master/examples/jsm/controls/OrbitControls.js'
+    // 引入three.js三维引擎
+    import '../node_modules/three/build/three.js';
+    import '../node_modules/three//examples/js/controls/OrbitControls.js';
 
     var SCREEN_WIDTH = window.innerWidth, SCREEN_HEIGHT = window.innerHeight;
     var VIEW_ANGLE = 55, ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT, NEAR = 0.1, FAR = 10000;
@@ -85,7 +86,7 @@
 
     //控制
     function initControls() {
-      controls = new OrbitControls(camera, renderer.domElement);
+      controls = new THREE.OrbitControls(camera, renderer.domElement);
     }
     // 显示坐标轴
     function addAxesHelper() {

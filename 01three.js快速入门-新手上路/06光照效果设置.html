@@ -11,12 +11,13 @@
       /* 隐藏body窗口区域滚动条 */
     }
   </style>
-  <script src="../three.js-master/build/three.js"></script>
-  <script src="../three.js-master/examples/js/controls/OrbitControls.js"></script>
 </head>
 
 <body>
-  <script>
+  <script type="module">
+    // 引入three.js三维引擎
+    import '../node_modules/three/build/three.js';
+    import '../node_modules/three//examples/js/controls/OrbitControls.js';
     /**
      * 创建场景对象Scene
      */
@@ -77,10 +78,9 @@
     // //执行渲染操作   指定场景、相机作为参数
     // renderer.render(scene, camera);
     // 辅助坐标系  参数250表示坐标系大小，可以根据场景大小去设置
-    var axisHelper = new THREE.AxisHelper(250);
-    scene.add(axisHelper);
-  </script>
-  <script>
+    var axesHelper = new THREE.AxesHelper(250);
+    scene.add(axesHelper);
+
     // 设定一个时间，根据时间控制图形匀速旋转
     let T0 = new Date();//上次时间
     render();

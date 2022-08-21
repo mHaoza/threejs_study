@@ -15,13 +15,23 @@
 
 <body>
   <div id="ThreeJS"></div>
-  <script src="../three.js-master/build/three.js"></script>
-  <script src="../three.js-master/examples/js/controls/OrbitControls.js"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "../node_modules/three/build/three.module.js",
+        "tween": "../../node_modules/three/examples/jsm/libs/tween.module.min.js",
+        "GLTFLoader": "../node_modules/three/examples/jsm/loaders/GLTFLoader.js",
+        "OrbitControls": "../node_modules/three/examples/js/controls/OrbitControls.js"
+      }
+    }
+</script>
   <script type="module">
+    // 引入three.js三维引擎
+    import * as THREE from 'three';
+    // import 'OrbitControls';
     // 引入插件
-    import { TWEEN } from '../three.js-master/examples/jsm/libs/tween.module.min.js';
-    import { GLTFLoader } from '../three.js-master/examples/jsm/loaders/GLTFLoader.js';
-    // import { OrbitControls } from '../three.js-master/examples/js/controls/OrbitControls.js';
+    import { TWEEN } from 'tween';
+    import { GLTFLoader } from 'GLTFLoader';
 
 
 
@@ -348,7 +358,7 @@
       initCamera();
       initRender();
       // initEvent();
-      initControls();
+      // initControls();
       initLight();
       initObject();
       //监听键盘按键
@@ -386,7 +396,7 @@
       var delta = clock.getDelta();
       var moveDistance = 200 * delta;
       var rotateAngle = Math.PI / 2 * delta;
-      controls.update();
+      // controls.update();
     }
 
   </script>

@@ -16,10 +16,10 @@
 </head>
 
 <body>
-  <script src="../three.js-master/build/three.js"></script>
-  <script src="../three.js-master/examples/js/controls/OrbitControls.js"></script>
-
-  <script>
+  <script type="module">
+    // 引入three.js三维引擎
+    import '../node_modules/three/build/three.js';
+    import '../node_modules/three//examples/js/controls/OrbitControls.js';
     // 创建一个场景对象
     let scene = new THREE.Scene()
 
@@ -57,8 +57,8 @@
     document.body.appendChild(renderer.domElement)
 
     // 辅助坐标系，可用于调试查看
-    var axisHelper = new THREE.AxisHelper(250)
-    scene.add(axisHelper)
+    var axesHelper = new THREE.AxesHelper(250);
+    scene.add(axesHelper);
 
 
     render();
@@ -68,66 +68,68 @@
       requestAnimationFrame(render);//请求再次执行渲染函数render
     }
     var controls = new THREE.OrbitControls(camera, renderer.domElement);//创建控件对象
-  </script>
 
-  <script>
-  //   /**
-  //  * 创建拉伸网格模型
-  //  */
-  //   var shape = new THREE.Shape();
-  //   /**四条直线绘制一个矩形轮廓*/
-  //   shape.moveTo(0, 0);//起点
-  //   shape.lineTo(0, 100);//第2点
-  //   shape.lineTo(100, 100);//第3点
-  //   shape.lineTo(100, 0);//第4点
-  //   shape.lineTo(0, 0);//第5点
-  //   var geometry = new THREE.ExtrudeGeometry(//拉伸造型
-  //     shape,//二维轮廓
-  //     //拉伸参数
-  //     {
-  //       amount: 120,//拉伸长度
-  //       bevelEnabled: false//无倒角
-  //     }
-  //   );
+    {
+        
+    //   /**
+    //  * 创建拉伸网格模型
+    //  */
+    //   var shape = new THREE.Shape();
+    //   /**四条直线绘制一个矩形轮廓*/
+    //   shape.moveTo(0, 0);//起点
+    //   shape.lineTo(0, 100);//第2点
+    //   shape.lineTo(100, 100);//第3点
+    //   shape.lineTo(100, 0);//第4点
+    //   shape.lineTo(0, 0);//第5点
+    //   var geometry = new THREE.ExtrudeGeometry(//拉伸造型
+    //     shape,//二维轮廓
+    //     //拉伸参数
+    //     {
+    //       amount: 120,//拉伸长度
+    //       bevelEnabled: false//无倒角
+    //     }
+    //   );
 
-    var material = new THREE.MeshPhongMaterial({
-      color: 0x0000ff,
-      size: 5.0//点对象像素尺寸
-    });//材质对象
+      var material = new THREE.MeshPhongMaterial({
+        color: 0x0000ff,
+        size: 5.0//点对象像素尺寸
+      });//材质对象
 
 
-    /**
-    * 创建扫描网格模型
-    */
-    var shape = new THREE.Shape();
-    /**四条直线绘制一个矩形轮廓*/
-    shape.moveTo(0, 0);//起点
-    shape.lineTo(0, 10);//第2点
-    shape.lineTo(10, 10);//第3点
-    shape.lineTo(10, 0);//第4点
-    shape.lineTo(0, 0);//第5点
-    /**创建轮廓的扫描轨迹(3D样条曲线)*/
-    var curve = new THREE.CatmullRomCurve3([  // SplineCurve3已废弃，使用CatmullRomCurve3
+      /**
+      * 创建扫描网格模型
+      */
+      var shape = new THREE.Shape();
+      /**四条直线绘制一个矩形轮廓*/
+      shape.moveTo(0, 0);//起点
+      shape.lineTo(0, 10);//第2点
+      shape.lineTo(10, 10);//第3点
+      shape.lineTo(10, 0);//第4点
+      shape.lineTo(0, 0);//第5点
+      /**创建轮廓的扫描轨迹(3D样条曲线)*/
+      var curve = new THREE.CatmullRomCurve3([  // SplineCurve3已废弃，使用CatmullRomCurve3
 
-      new THREE.Vector3(-10, -50, -50),
-      new THREE.Vector3(10, 0, 0),
-      new THREE.Vector3(8, 50, 50),
-      new THREE.Vector3(-5, 0, 100)
-    ]);
-    var geometry = new THREE.ExtrudeGeometry(//拉伸造型
-      shape,//二维轮廓
-      //拉伸参数
-      {
-        bevelEnabled: false,//无倒角
-        extrudePath: curve,//选择扫描轨迹
-        steps: 1000//扫描方向细分数
-      }
-    );
+        new THREE.Vector3(-10, -50, -50),
+        new THREE.Vector3(10, 0, 0),
+        new THREE.Vector3(8, 50, 50),
+        new THREE.Vector3(-5, 0, 100)
+      ]);
+      var geometry = new THREE.ExtrudeGeometry(//拉伸造型
+        shape,//二维轮廓
+        //拉伸参数
+        {
+          bevelEnabled: false,//无倒角
+          extrudePath: curve,//选择扫描轨迹
+          steps: 1000//扫描方向细分数
+        }
+      );
+
+      
+      var mesh = new THREE.Mesh(geometry, material);//点模型对象
+      scene.add(mesh);//点模型添加到场景中
 
     
-    var mesh = new THREE.Mesh(geometry, material);//点模型对象
-    scene.add(mesh);//点模型添加到场景中
-
+    }
   </script>
 </body>
 

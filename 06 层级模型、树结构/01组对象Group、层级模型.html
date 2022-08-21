@@ -16,10 +16,10 @@
 </head>
 
 <body>
-  <script src="../three.js-master/build/three.js"></script>
-  <script src="../three.js-master/examples/js/controls/OrbitControls.js"></script>
-
-  <script>
+  <script type="module">
+    // 引入three.js三维引擎
+    import '../node_modules/three/build/three.js';
+    import '../node_modules/three//examples/js/controls/OrbitControls.js';
     // 创建一个场景对象
     let scene = new THREE.Scene()
 
@@ -29,17 +29,17 @@
     // let mesh = new THREE.Mesh(geometry, letmaterial)
     // scene.add(mesh)
 
-    // // 光源
-    // // 点光源
-    // let pointe = new THREE.PointLight(0xffffff)
-    // // pointe.position.y = 200
-    // pointe.position.x = 300
-    // pointe.position.y = 600
-    // pointe.position.z = 300
-    // scene.add(pointe)
-    // //环境光
-    // var ambient = new THREE.AmbientLight(0x444444);
-    // scene.add(ambient);
+    // 光源
+    // 点光源
+    let pointe = new THREE.PointLight(0xffffff)
+    // pointe.position.y = 200
+    pointe.position.x = 300
+    pointe.position.y = 600
+    pointe.position.z = 300
+    scene.add(pointe)
+    //环境光
+    var ambient = new THREE.AmbientLight(0x444444);
+    scene.add(ambient);
 
     // 相机
     let width = window.innerWidth
@@ -57,8 +57,8 @@
     document.body.appendChild(renderer.domElement)
 
     // 辅助坐标系，可用于调试查看
-    var axisHelper = new THREE.AxisHelper(250)
-    scene.add(axisHelper)
+    var axesHelper = new THREE.AxesHelper(250);
+    scene.add(axesHelper);
 
 
     render();
@@ -67,10 +67,7 @@
       renderer.render(scene, camera);//执行渲染操作
       requestAnimationFrame(render);//请求再次执行渲染函数render
     }
-    var controls = new THREE.OrbitControls(camera, renderer.domElement);//创建控件对象
-  </script>
-
-  <script>
+    var controls = new THREE.OrbitControls(camera, renderer.domElement);//创建控件对象、
     //创建两个网格模型mesh1、mesh2
     var geometry = new THREE.BoxGeometry(20, 20, 20);
     var material = new THREE.MeshLambertMaterial({ color: 0x0000ff });

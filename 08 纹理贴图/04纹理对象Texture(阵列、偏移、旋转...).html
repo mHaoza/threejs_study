@@ -16,10 +16,10 @@
 </head>
 
 <body>
-  <script src="../three.js-master/build/three.js"></script>
-  <script src="../three.js-master/examples/js/controls/OrbitControls.js"></script>
-
-  <script>
+  <script type="module">
+    // 引入three.js三维引擎
+    import '../node_modules/three/build/three.js';
+    import '../node_modules/three//examples/js/controls/OrbitControls.js';
     // 创建一个场景对象
     let scene = new THREE.Scene()
 
@@ -59,8 +59,8 @@
     document.body.appendChild(renderer.domElement)
 
     // 辅助坐标系，可用于调试查看
-    var axisHelper = new THREE.AxisHelper(250)
-    scene.add(axisHelper)
+    var axesHelper = new THREE.AxesHelper(250);
+    scene.add(axesHelper);
 
 
     // 渲染函数
@@ -70,56 +70,57 @@
       texture.offset.x -= 0.06
     }
     var controls = new THREE.OrbitControls(camera, renderer.domElement);//创建控件对象
-  </script>
 
-  <script>
-    /**
-     * 创建一个地面
-     */
-    var geometry = new THREE.PlaneGeometry(1000, 1000); //矩形平面
-    // 加载树纹理贴图
-    var texture = new THREE.TextureLoader().load("./img/wind-2.png");
-    // 设置阵列
-    texture.wrapS = THREE.RepeatWrapping;
-    texture.wrapT = THREE.RepeatWrapping;
-    // uv两个方向纹理重复数量
-    texture.repeat.set(10, 10);
-    var material = new THREE.MeshMatcapMaterial({
-      map: texture,
-      transparent: true,
-    });
-    var mesh = new THREE.Mesh(geometry, material); //网格模型对象Mesh
-    scene.add(mesh); //网格模型添加到场景中
-    mesh.rotateX(-Math.PI / 2);
+    {
+        
+      /**
+       * 创建一个地面
+       */
+      var geometry = new THREE.PlaneGeometry(1000, 1000); //矩形平面
+      // 加载树纹理贴图
+      var texture = new THREE.TextureLoader().load("./img/wind-2.png");
+      // 设置阵列
+      texture.wrapS = THREE.RepeatWrapping;
+      texture.wrapT = THREE.RepeatWrapping;
+      // uv两个方向纹理重复数量
+      texture.repeat.set(10, 10);
+      var material = new THREE.MeshMatcapMaterial({
+        map: texture,
+        transparent: true,
+      });
+      var mesh = new THREE.Mesh(geometry, material); //网格模型对象Mesh
+      scene.add(mesh); //网格模型添加到场景中
+      mesh.rotateX(-Math.PI / 2);
 
-    /*
-   ** 创建一个设置重复纹理的管道
-   */
-    var curve = new THREE.CatmullRomCurve3([
-      new THREE.Vector3(-80, -40, 0),
-      new THREE.Vector3(-70, 40, 0),
-      new THREE.Vector3(70, 40, 0),
-      new THREE.Vector3(80, -40, 0)
-    ]);
-    var tubeGeometry = new THREE.TubeGeometry(curve, 100, 0.6, 50, false);
-    var textureLoader = new THREE.TextureLoader();
-    var texture = textureLoader.load('./img/wind-2.png');
-    // 设置阵列模式为 RepeatWrapping
-    texture.wrapS = THREE.RepeatWrapping
-    texture.wrapT = THREE.RepeatWrapping
-    // 设置x方向的偏移(沿着管道路径方向)，y方向默认1
-    //等价texture.repeat= new THREE.Vector2(20,1)
-    texture.repeat.x = 20;
-    var tubeMaterial = new THREE.MeshPhongMaterial({
-      map: texture,
-      transparent: true,
-    });
+      /*
+    ** 创建一个设置重复纹理的管道
+    */
+      var curve = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(-80, -40, 0),
+        new THREE.Vector3(-70, 40, 0),
+        new THREE.Vector3(70, 40, 0),
+        new THREE.Vector3(80, -40, 0)
+      ]);
+      var tubeGeometry = new THREE.TubeGeometry(curve, 100, 0.6, 50, false);
+      var textureLoader = new THREE.TextureLoader();
+      var texture = textureLoader.load('./img/wind-2.png');
+      // 设置阵列模式为 RepeatWrapping
+      texture.wrapS = THREE.RepeatWrapping
+      texture.wrapT = THREE.RepeatWrapping
+      // 设置x方向的偏移(沿着管道路径方向)，y方向默认1
+      //等价texture.repeat= new THREE.Vector2(20,1)
+      texture.repeat.x = 20;
+      var tubeMaterial = new THREE.MeshPhongMaterial({
+        map: texture,
+        transparent: true,
+      });
 
-    var mesh = new THREE.Mesh(tubeGeometry, tubeMaterial); //网格模型对象Mesh
-    scene.add(mesh); //网格模型添加到场景中
+      var mesh = new THREE.Mesh(tubeGeometry, tubeMaterial); //网格模型对象Mesh
+      scene.add(mesh); //网格模型添加到场景中
 
 
-    render();
+      render();
+    }
   </script>
 </body>
 

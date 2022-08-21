@@ -11,14 +11,12 @@
       /* 隐藏body窗口区域滚动条 */
     }
   </style>
-  <!--引入three.js三维引擎-->
-  <!-- <script src="http://www.yanhuangxueyuan.com/versions/threejsR92/build/three.js"></script> -->
-  <script src="../js/three.js"></script>
-  <!-- <script src="http://www.yanhuangxueyuan.com/threejs/build/three.js"></script> -->
 </head>
 
 <body>
-  <script>
+  <script type="module">
+    // 引入three.js三维引擎
+    import '../node_modules/three/build/three.js';
     /**
      * 创建场景对象Scene
      */
@@ -66,8 +64,8 @@
     document.body.appendChild(renderer.domElement); //body元素中插入canvas对象
     //执行渲染操作   指定场景、相机作为参数
     renderer.render(scene, camera);
-  </script>
-  <script>
+
+    
     // 设定一个时间，根据时间控制图形匀速旋转
     let T0 = new Date();//上次时间
     render();

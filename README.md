@@ -1,7 +1,9 @@
 ## three.js学习记录  
 
 ### 引入
-根目录下需要three.js-master项目文件
+``` shell
+npm install
+```
 
 ### 参考教程/文档  
 [Three.js零基础入门教程(郭隆邦)](http://www.yanhuangxueyuan.com/Three.js/)  
